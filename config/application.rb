@@ -34,7 +34,8 @@ module CphCrawler
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'http://localhost:3000'
+        client_url = Rails.env.development? ? 'http://localhost:3000' : ENV['CPH_CLIENT_URL']
+        origins client_url
         resource '*', :headers => :any, :methods => [:get, :options]
       end
     end
